@@ -1,7 +1,7 @@
 {
 	"data": {
 		"documentCountLimit": 1000,
-		"url": ""
+		"url": "mongodb://localhost:27017/hashtagsell-posting-v1"
 	},
 	"logging": {
 		"level": "info"
