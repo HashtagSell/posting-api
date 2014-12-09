@@ -57,6 +57,6 @@ As changes are saved to .js files in the project, supervisor will automatically 
 * lib - all application code resides in this folder
   * config - default configuration for the application - this should have a master set of all supported configuration keys
   * data - handles mapping of models to the underlying data storage systems - abstracts the database entirely away from all layers above it
-  * model - relies on the data layer to store and retrieve model data - contains all logic related to the model including validation and sanitation
-  * route - relies on the model to support various resources exposed via the API
+  * models - relies on the data layer to store and retrieve model data - contains all logic related to the model including validation and sanitation
+  * routes - relies on the model to support various resources exposed via the API
 * test - all test code resides in this folder
