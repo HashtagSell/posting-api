@@ -4,30 +4,45 @@ This is a central posting API for storing and retrieving posting details for has
 
 ## Dependencies
 
-This section will describe API dependencies.
+* Node v0.10
+* MongoDB v2.6
+
+A simple way to install and run Mongo locally is to use Homebrew (<http://brew.sh/>):
+
+```bash
+brew install mongo
+```
 
 ## Getting Started
 
 ### Get Code
 
-```
+To clone the repository and install dependencies, please perform the following:
+
+```bash
 git clone git@bitbucket.org:hashtagsell/posting-api.git
 cd posting-api
 npm install
+```
+
+For convenience you may find it useful to install `gulp` globally as well:
+
+```bash
+sudo npm install -g gulp
 ```
 
 ### Configuration
 
 The server utilizes a mechanism for allowing configuration overrides by environment. To make use of this for a local environment, create a `local.json` configuration file in a new folder named `config` at the root of the application. The `.gitignore` has an entry to ignore this folder so that the local config won't trash other environment configurations.
 
-```
+```bash
 mkdir ./config
 touch ./config/local.json
 ```
 
 Now put the following into the `local.json` configuration file:
 
-```
+```javascript
 {
 	"logging": {
 		"level": "trace"
@@ -41,9 +56,22 @@ Now put the following into the `local.json` configuration file:
 
 ### Start It Up
 
-To specify the environment, use the `NODE_ENV` environment variable in the console to begin the process. The `npm start` script uses supervisor and pipes the output to Bunyan for logging:
+#### Mongo DB
 
+After installing all modules, gulp can assist you in starting Mongo (note, the gulp task `ensure-data-directory` only needs to be run once):
+
+```bash
+sudo gulp ensure-data-directory
+gulp mongo-start
 ```
+
+_Please Note: All mongo data for hashtagsell is placed into `/usr/local/var/mongodb/hashtagsell` by default_
+
+#### API Server
+
+When starting the API server, an environment configuration should be specified (see above for details on creating a `local.json` environment config). To specify the environment, use the `NODE_ENV` environment variable in the console to begin the process. The `npm start` script uses supervisor and pipes the output to Bunyan for logging:
+
+```bash
 NODE_ENV=local npm start
 ```
 
