@@ -11,6 +11,7 @@
 			"certPath": "./init/keys/server.crt",
 			"keyPath": "./init/keys/server.key"
 		},
+		"bodyLimit" : "3mb",
 		"host": "0.0.0.0",
 		"port": 8880,
 		"secure": false
