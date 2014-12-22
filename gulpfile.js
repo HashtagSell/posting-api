@@ -1,8 +1,6 @@
 'use strict';
 
 var
-	fs = require('fs'),
-
 	del = require('del'),
 	gulp = require('gulp'),
 	istanbul = require('gulp-istanbul'),
@@ -24,7 +22,7 @@ gulp.task('jshint', function () {
 	return gulp
 		.src(['lib/**/*.js', 'test/**/*.js'])
 		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(jshint.reporter('jshint-stylish'));
 });
 
 
@@ -124,22 +122,22 @@ gulp.task('mongo-stop', function (callback) {
 
 
 gulp.task('test-all', function (callback) {
-	sequence('clean', 'jshint', 'test-coverage', 'test-functional', callback);
+	sequence('clean', 'jshint', 'test-coverage', callback);
 });
 
 
 gulp.task('test-coverage', ['clean'], function () {
 	return gulp
-		.src(['./lib/*.js'])
+		.src(['./lib/**/*.js'])
 		.pipe(istanbul())
 		.pipe(istanbul.hookRequire())
 		.on('finish', function () {
 			gulp
-				.src(['./test/lib/*.js'])
+				.src(['./test/lib/**/*.js'])
 				.pipe(mocha({
 					reporter : 'spec'
 				}))
-				.pipe(istanbul.writeReports('./reports'))
+				.pipe(istanbul.writeReports('./reports'));
 		});
 });
 

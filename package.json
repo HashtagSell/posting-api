@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "supervisor server | bunyan -o short",
-    "test": "gulp jshint"
+    "test": "gulp test-all"
   },
   "repository": {
     "type": "git",
