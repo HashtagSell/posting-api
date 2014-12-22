@@ -71,7 +71,7 @@ brew install mongo
 To clone the repository and install dependencies, please perform the following:
 
 ```bash
-git clone git@bitbucket.org:hashtagsell/posting-api.git
+git clone git@github.com:hashtagsell/posting-api.git
 cd posting-api
 npm install
 ```
