@@ -79,6 +79,20 @@ NODE_ENV=local npm start
 
 As changes are saved to .js files in the project, supervisor will automatically restart the server. It may be useful to periodically check the terminal to make sure a runtime unhandled exception isn't stopping the server. Additionally, using jshint may help to uncover potential problems before running code. The `npm test` script is connected to `gulp jshint` to help with this.
 
+### Pushing Branches / Pull Requests
+
+Prior to pushing your branch to the remote to create a pull request, please ensure you've run the tests and verified and fixed any JSHint issues or failed unit tests:
+
+```bash
+npm test
+```
+
+After running `npm test` code coverage reports are created that can be viewed to determine if model changes have adequate code coverage prior to submission:
+
+```bash
+open ./reports/lcov-report/index.html
+```
+
 ### Application Structure
 
 * init - x509 certs, Nginx config and Upstart config scripts are here

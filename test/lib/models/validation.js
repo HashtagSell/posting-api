@@ -10,6 +10,7 @@ describe('validation', function () {
 
 	describe('#isEmpty', function () {
 		it('should properly verify blank strings are empty', function () {
+			should.exist(validationModel.isEmpty);
 			validationModel.isEmpty('').should.equal(true);
 		});
 
@@ -23,8 +24,16 @@ describe('validation', function () {
 			validationModel.isEmpty(undef).should.equal(true);
 		});
 
+		it('should properly verify empty arrays', function () {
+			validationModel.isEmpty([]).should.equal(true);
+		});
+
 		it('should properly verify blank objects are empty', function () {
 			validationModel.isEmpty({}).should.equal(true);
+		});
+
+		it('should properly allow Date values through', function () {
+			validationModel.isEmpty(new Date()).should.equal(false);
 		});
 	});
 });
