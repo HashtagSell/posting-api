@@ -2,7 +2,60 @@
 
 This is a central posting API for storing and retrieving posting details for hashtagsell.
 
-## Dependencies
+## Object Model
+
+Below is an example posting from the posting-api. In the comments next to each field, there is an indication of how postings from 3taps are mapped into the posting-api model. This API will support messages posted in either the 3taps format or in the posting-API native format, but will only return postings in the native posting-API format.
+
+```javascript
+var posting = {
+  external : {
+    source : {
+      code : '',                    // 3taps item.source
+      id : '',                      // 3taps item.external_id
+      url : ''                      // 3taps item.external_url
+    },
+    threeTaps : {
+      id : 1,                       // 3taps item.id
+      category : '',                // 3taps item.category
+      categoryGroup : '',           // 3taps item.category_group
+      location : {
+        city : '',                  // 3taps item.location.city
+        country : '',               // 3taps item.location.country
+        county : '',                // 3taps item.location.county
+        formatted : '',             // 3taps item.location.formatted_address
+        locality : '',              // 3taps item.location.locality
+        metro : '',                 // 3taps item.location.metro
+        region : '',                // 3taps item.location.region
+        state : '',                 // 3taps item.location.state
+        zipCode : '',               // 3taps item.location.zipcode
+      },
+      status : '',                  // 3taps item.status
+      timestamp : 12345             // 3taps item.timestamp
+    }
+  },
+  annotations : {},                 // 3taps item.annotations
+  askingPrice : {
+    currency : 'USD',               // 3taps item.currency
+    value : ''                      // 3taps item.price
+  },
+  created : '2014-12-10T01:00:00Z'  // 3taps item.timestamp
+  expires : '2014-12-10T06:29:00Z'  // 3taps item.expires
+  geo : {
+    accuracy : 0,                   // 3taps item.location.accuracy
+    coordinates: [0, 0],            // 3taps [item.location.lat, item.location.long]
+    status : 0                      // 3taps item.location.geolocation_status
+  },
+  body : 'required',                // 3taps item.body
+  heading : 'required',             // 3taps item.heading
+  images : {},                      // 3taps item.images
+  language : 'EN',                  // 3taps item.language
+  postingId : 'required'            // hashtagsell assigned ID
+};
+```
+
+## Getting Started
+
+### Dependencies
 
 * Node v0.10
 * MongoDB v2.6
@@ -12,8 +65,6 @@ A simple way to install and run Mongo locally is to use Homebrew (<http://brew.s
 ```bash
 brew install mongo
 ```
-
-## Getting Started
 
 ### Get Code
 
@@ -44,13 +95,13 @@ Now put the following into the `local.json` configuration file:
 
 ```javascript
 {
-	"logging": {
-		"level": "trace"
-	},
-	"server": {
-		"port": 4043,
-		"secure": true
-	}
+  "logging": {
+    "level": "trace"
+  },
+  "server": {
+    "port": 4043,
+    "secure": true
+  }
 }
 ```
 
@@ -75,11 +126,11 @@ When starting the API server, an environment configuration should be specified (
 NODE_ENV=local npm start
 ```
 
-## Development
+### Development
 
 As changes are saved to .js files in the project, supervisor will automatically restart the server. It may be useful to periodically check the terminal to make sure a runtime unhandled exception isn't stopping the server. Additionally, using jshint may help to uncover potential problems before running code. The `npm test` script is connected to `gulp jshint` to help with this.
 
-### Pushing Branches / Pull Requests
+#### Pushing Branches / Pull Requests
 
 Prior to pushing your branch to the remote to create a pull request, please ensure you've run the tests and verified and fixed any JSHint issues or failed unit tests:
 
@@ -93,7 +144,7 @@ After running `npm test` code coverage reports are created that can be viewed to
 open ./reports/lcov-report/index.html
 ```
 
-### Application Structure
+#### Application Structure
 
 * init - x509 certs, Nginx config and Upstart config scripts are here
 * lib - all application code resides in this folder
