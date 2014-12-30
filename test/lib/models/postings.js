@@ -30,6 +30,11 @@ describe('postings', function () {
 				}
 			}
 
+			// override to test no result returned from findById
+			if (method === 'findById' && response.args[0] < 0) {
+				response = null;
+			}
+
 			if (callback) {
 				return setImmediate(function () {
 					return callback(null, response);
@@ -58,6 +63,7 @@ describe('postings', function () {
 		mockData = {
 			postings : {
 				find : mockDataFunction('find'),
+				findById : mockDataFunction('findById'),
 				upsert : mockDataFunction('upsert')
 			}
 		},
@@ -237,10 +243,66 @@ describe('postings', function () {
 	});
 
 	describe('#find', function () {
+		it('should not allow empty search options', function (done) {
+			postings.find({}, function (err, result) {
+				should.exist(err);
+				should.not.exist(result);
 
+				err.statusCode.should.equal(409);
+				err.name.should.equal('RequiredFieldMissingError');
+
+				return done();
+			});
+		});
+
+		it('should properly search with options', function (done) {
+			postings.find({ start : 0, count : 100 }, function (err, result) {
+				should.not.exist(err);
+				should.exist(result);
+
+				result.args.should.have.length(1);
+				result.method.should.equal('find');
+
+				return done();
+			});
+		});
 	});
 
 	describe('#findById', function () {
+		it('should not allow null postingId', function (done) {
+			postings.findById(null, function (err, result) {
+				should.exist(err);
+				should.not.exist(result);
 
+				err.statusCode.should.equal(409);
+				err.name.should.equal('RequiredFieldMissingError');
+
+				return done();
+			});
+		});
+
+		it('should properly search with options', function (done) {
+			postings.findById(1, function (err, result) {
+				should.not.exist(err);
+				should.exist(result);
+
+				result.args.should.have.length(1);
+				result.method.should.equal('findById');
+
+				return done();
+			});
+		});
+
+		it('should properly generate error when no result is found', function (done) {
+			postings.findById(-1, function (err, result) {
+				should.exist(err);
+				should.not.exist(result);
+
+				err.statusCode.should.equal(404);
+				err.name.should.equal('ResourceNotFoundError');
+
+				return done();
+			});
+		});
 	});
 });
