@@ -286,7 +286,6 @@ describe('postings', function () {
 				should.not.exist(err);
 				should.exist(result);
 
-				result.args.should.have.length(1);
 				result.method.should.equal('findById');
 
 				return done();
