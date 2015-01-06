@@ -99,11 +99,11 @@ Now edit `/etc/mongodb.conf` and ensure the following values are set:
 # Where to store the data.
 dbpath=/data
 
-#where to log
+# Where to log
 logpath=/var/log/mongodb/mongodb.log
 logappend=true
 
-bind_ip = 127.0.0.1
+# bind_ip = 127.0.0.1
 port = 27017
 
 # Enable journaling, http://www.mongodb.org/display/DOCS/Journaling
@@ -197,12 +197,12 @@ mkdir ~/source/posting-api/config
 touch ~/source/posting-api/config/production.json
 ```
 
-Now edit the `~/source/posting-api/config/production.json` file to add the following (note the reference to the EC2 Hostname below refers to the instance where MongoDB has been installed - this will need to be changed periodically when the EC2 is rebuilt until an ElasticIP or hostname is assigned):
+Now edit the `~/source/posting-api/config/production.json` file to add the following (note the reference to the Hostname below refers to the internal ELB where the MongoDB EC2 instance should be added):
 
 ```json
 {
 	"data": {
-		"url": "mongodb://ec2-54-69-251-189.us-west-2.compute.amazonaws.com:27017/hashtagsell-posting-v1"
+		"url": "mongodb://internal-stage-hashtagsell-data-154009749.us-west-2.elb.amazonaws.com:27017/hashtagsell-posting-v1"
 	},
 	"server": {
 		"port": 8880,
