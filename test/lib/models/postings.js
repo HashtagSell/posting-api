@@ -167,18 +167,18 @@ describe('postings', function () {
 			});
 		});
 
-		it('should properly detect created and expires as seconds and convert to date', function (done) {
+		it('should properly detect createdAt and expiresAt as seconds and convert to date', function (done) {
 			postings.create(mock3tapsPosting, function (err, result) {
 				should.not.exist(err);
 				should.exist(result);
-				result.args[1].created.should.be.a('Date');
-				result.args[1].expires.should.be.a('Date');
+				result.args[1].createdAt.should.be.a('Date');
+				result.args[1].expiresAt.should.be.a('Date');
 
 				return done();
 			});
 		});
 
-		it('should properly allow created and expires to be dates', function (done) {
+		it('should properly allow createdAt and expiresAt to be dates', function (done) {
 			mock3tapsPosting.timestamp = new Date();
 			mock3tapsPosting.expires = new Date();
 			mock3tapsPosting.expires.setDate(mock3tapsPosting.expires.getDate() + 5);
@@ -186,22 +186,22 @@ describe('postings', function () {
 			postings.create(mock3tapsPosting, function (err, result) {
 				should.not.exist(err);
 				should.exist(result);
-				result.args[1].created.should.be.a('Date');
-				result.args[1].expires.should.be.a('Date');
+				result.args[1].createdAt.should.be.a('Date');
+				result.args[1].expiresAt.should.be.a('Date');
 
 				return done();
 			});
 		});
 
-		it('should properly default expires when missing', function (done) {
+		it('should properly default expiresAt when missing', function (done) {
 			delete mock3tapsPosting.timestamp;
 			delete mock3tapsPosting.expires;
 
 			postings.create(mock3tapsPosting, function (err, result) {
 				should.not.exist(err);
 				should.exist(result);
-				result.args[1].created.should.be.a('Date');
-				result.args[1].expires.should.be.a('Date');
+				result.args[1].createdAt.should.be.a('Date');
+				result.args[1].expiresAt.should.be.a('Date');
 
 				return done();
 			});
