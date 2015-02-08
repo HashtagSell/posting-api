@@ -107,6 +107,14 @@ Now put the following into the `local.json` configuration file:
 
 ### Start It Up
 
+#### Redis
+
+If Redis is enabled via configuration, culp will allow you to start Redis:
+
+```bash
+gulp redis-start
+```
+
 #### Mongo DB
 
 After installing all modules, gulp can assist you in starting Mongo (note, the gulp task `ensure-data-directory` only needs to be run once):
