@@ -121,6 +121,62 @@ gulp.task('mongo-stop', function (callback) {
 });
 
 
+gulp.task('redis-start', function (callback) {
+	var
+		err,
+		message = '',
+		redisServer = spawn('redis-server', ['./init/redis.conf']);
+
+	redisServer.stdout.on('data', function (data) {
+		message += data;
+	});
+
+	redisServer.stderr.on('data', function (data) {
+		message += data;
+	});
+
+	redisServer.on('close', function (code) {
+		if (code !== 0) {
+			err = new Error('Error occurred attempting to start Redis');
+			err.exitCode = code;
+			err.message = message;
+
+			return callback(err);
+		}
+
+		return callback(null, message);
+	});
+});
+
+
+gulp.task('redis-stop', function (callback) {
+	var
+		err,
+		message = '',
+		redisCli = spawn('redis-cli', ['shutdown']);
+
+	redisCli.stdout.on('data', function (data) {
+		message += data;
+	});
+
+	redisCli.stderr.on('data', function (data) {
+		message += data;
+	});
+
+	redisCli.on('close', function (code) {
+		if (code !== 0) {
+			err = new Error('Error occurred attempting to stop Redis');
+			err.exitCode = code;
+			err.message = message;
+
+			return callback(err);
+		}
+
+		return callback(null, message);
+	});
+});
+
+
 gulp.task('test-all', function (callback) {
 	sequence('clean', 'jshint', 'test-coverage', callback);
 });

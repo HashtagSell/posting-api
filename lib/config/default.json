@@ -1,7 +1,14 @@
 {
 	"data": {
-		"documentCountLimit": 1000,
-		"url": "mongodb://localhost:27017/hashtagsell-posting-v1"
+		"mongo": {
+			"documentCountLimit": 1000,
+			"url": "mongodb://localhost:27017/hashtagsell-posting-v1"
+		},
+		"redis": {
+			"enabled": false,
+			"host": "localhost",
+			"port": 6379
+		}
 	},
 	"logging": {
 		"level": "info"
