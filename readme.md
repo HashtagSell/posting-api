@@ -2,6 +2,12 @@
 
 This is a central posting API for storing and retrieving posting details for hashtagsell.
 
+## Documentation
+
+Once the API is started, documentation can be viewed on the server: <https://localhost:4043/v1/docs>
+
+_Note: Please swap out `localhost` and `port` above to match configuration_
+
 ## Object Model
 
 Below is an example posting from the posting-api. In the comments next to each field, there is an indication of how postings from 3taps are mapped into the posting-api model. This API will support messages posted in either the 3taps format or in the posting-API native format, but will only return postings in the native posting-API format.
