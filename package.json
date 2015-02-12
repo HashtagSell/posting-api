@@ -1,6 +1,6 @@
 {
   "name": "posting-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "API for storing and retrieving posting data",
   "main": "server.js",
   "scripts": {
