@@ -1,5 +1,9 @@
+/**
+* Creates versions collection and fixes an index
+**/
+
 var
-cursor,
+	cursor,
 	version = 'v0.1.1';
 
 // ensure versions table and index exists
