@@ -132,6 +132,14 @@ gulp mongo-start
 
 _Please Note: All mongo data for hashtagsell is placed into `/usr/local/var/mongodb/hashtagsell` by default_
 
+##### Data Migrations
+
+Once Mongo is started, run the following migrations to get a new database up to the right version:
+
+```bash
+bash init/apply-migrations.sh
+```
+
 #### API Server
 
 When starting the API server, an environment configuration should be specified (see above for details on creating a `local.json` environment config). To specify the environment, use the `NODE_ENV` environment variable in the console to begin the process. The `npm start` script uses supervisor and pipes the output to Bunyan for logging:
