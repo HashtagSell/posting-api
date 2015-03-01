@@ -72,7 +72,7 @@ describe('postings', function () {
 		},
 		mockServices = {
 			ebay : {
-				create : function () {}
+				create : mockDataFunction('create')
 			}
 		},
 		postings;
