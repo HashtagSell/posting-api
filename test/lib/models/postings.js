@@ -61,10 +61,18 @@ describe('postings', function () {
 		},
 		mock3tapsPosting = {},
 		mockData = {
+			groupings : {
+				findEbayCategory : mockDataFunction('findEbayCategory')
+			},
 			postings : {
 				find : mockDataFunction('find'),
 				findById : mockDataFunction('findById'),
 				upsert : mockDataFunction('upsert')
+			}
+		},
+		mockServices = {
+			ebay : {
+				create : function () {}
 			}
 		},
 		postings;
@@ -108,7 +116,7 @@ describe('postings', function () {
 			images : {},
 			language : 'EN'
 		};
-		postings = postingsModel(mockApp, mockData);
+		postings = postingsModel(mockApp, mockData, mockServices);
 	});
 
 	describe('#create', function () {
