@@ -101,8 +101,15 @@ Now put the following into the `local.json` configuration file:
 
 ```javascript
 {
+  "environment": "local",
   "logging": {
     "level": "trace"
+  },
+  "mws": {
+    "secretKey": "<your Amazon MWS secret key here - see Brad or Josh>"
+  },
+  "realtime": {
+    "enabled": false
   },
   "server": {
     "port": 4043,
