@@ -28,6 +28,7 @@
     "mws-product": "^1.0.1",
     "node-uuid": "^1.4.2",
     "pretty-bytes": "^1.0.2",
+    "promise": "^6.1.0",
     "request": "^2.53.0",
     "settings-lib": "0.1.1",
     "socket.io-client": "^1.3.4",
