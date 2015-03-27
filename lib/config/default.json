@@ -16,6 +16,10 @@
 		"token": "AgAAAA**AQAAAA**aAAAAA**hmLyVA**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GhDZSCqASdj6x9nY+seQ**oxgDAA**AAMAAA**N9hHa8m+zOe6j/3hM3obZpu2burAHmfX92uyE0xfkHxEZ48/CxBgz/r770My02y5TjAERwusQ92OSfOK9vWauOAqUaY0zbiRVx/UYIMiZMQTobahuoo8z7yingaGoV9h1uA3zBrI6WtHStirGs0RVZPJJtNeACxAAGtP8RIGiIloWwrqMijdAd8FA1yRbVADPsLM3FXrE06ezV+do5FT53YgHuH5kuvxpqhwq6F1xhH5Z1CsZ0oJ+fmfcdCMYmIPgSaS1dvz2V0dF/JXPYOcsvkRIoULOm7js0SXl9Y4gQKtSLL8DGFNKSysXE5EZmYlnt5r1STb1FgW55mVMZRwzQo4YpahFcCS0uVLPOc7UV5wcaCNIWJomHwMu6PFMUuAtQCl3jHYh0ldxivvVDtsQkNFk/wu7D2GgllOCoBXBzU4sRaSx4pIpNo7apaaCLY6YHYhl7qKKiv8mYNyPPNNTSrL/0ErmPramBtoLrAlNmXg0IaUHDhHaaHX1skcQkNA80Y97blozAgd2+rHhTettp9GBbJIYnZJH0H1CJtWU5Shd4Wy/SY3cTi8OPmRk+xDTCnozNhOY59Gg/MPjyWeoyXPQ5OLyI1kPy/+yt8Edt1UIvcc8EI8LqIT/GDqKkpOPDEBJtPuBHdCAUOwo7TUOz4c+IGWC6eGjH62fyoQ/Qvz36v0Cg7w2u0iHq1jSgLD/q7JDSmJnJDCNt9g3kcdahj/GaYZfQ+Ne7AdpJkNa4pkEK81zcFw4t35X0miAo2f",
 		"url": "https://api.sandbox.ebay.com/ws/api.dll"
 	},
+	"freeGeo": {
+		"defaultAddress": "216.38.134.18",
+		"url": "http://localhost:8080/json"
+	},
 	"logging": {
 		"level": "info"
 	},
