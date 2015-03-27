@@ -17,6 +17,7 @@
 		"url": "https://api.sandbox.ebay.com/ws/api.dll"
 	},
 	"freeGeo": {
+		"defaultAddress": "216.38.134.18",
 		"url": "http://localhost:8080/json"
 	},
 	"logging": {
