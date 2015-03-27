@@ -5,7 +5,7 @@
 			"url": "mongodb://localhost:27017/hashtagsell-posting-v1"
 		}
 	},
-	"environment" : "develop",
+	"environment": "develop",
 	"ebay": {
 		"appId": "HashtagS-e6d2-40fc-87ef-34a50b3cd9c8",
 		"certId": "8f9ce1fa-a532-42f2-8965-de3e37e4d527",
@@ -19,6 +19,10 @@
 	"logging": {
 		"level": "info"
 	},
+	"mws": {
+		"accessKeyId": "AKIAJ3JLXBBYZKFSMLZA",
+		"sellerId": "A318V6BNW6VDCT"
+	},
 	"realtime": {
 		"enabled": false,
 		"url": "https://localhost:4044",
@@ -29,7 +33,7 @@
 			"certPath": "./init/keys/server.crt",
 			"keyPath": "./init/keys/server.key"
 		},
-		"bodyLimit" : "3mb",
+		"bodyLimit": "3mb",
 		"host": "0.0.0.0",
 		"port": 8880,
 		"secure": false
