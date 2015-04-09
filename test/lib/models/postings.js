@@ -73,6 +73,9 @@ describe('postings', function () {
 		mockServices = {
 			ebay : {
 				create : mockDataFunction('create')
+			},
+			realtime : {
+				emit : mockDataFunction('emit')
 			}
 		},
 		postings;
