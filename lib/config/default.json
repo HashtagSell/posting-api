@@ -1,5 +1,12 @@
 {
 	"data": {
+		"es": {
+			"_index": "hashtagsell",
+			"server": {
+				"host": "localhost",
+				"port": 9200
+			}
+		},
 		"mongo": {
 			"documentCountLimit": 1000,
 			"url": "mongodb://localhost:27017/hashtagsell-posting-v1"
