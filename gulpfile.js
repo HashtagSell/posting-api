@@ -6,11 +6,47 @@ var
 	istanbul = require('gulp-istanbul'),
 	jshint = require('gulp-jshint'),
 	mocha = require('gulp-mocha'),
+	request = require('request'),
 	sequence = require('run-sequence'),
 	spawn = require('child_process').spawn,
 
+	/* IMPORTANT NOTE: This matches a setting in ./init/elasticsearch.yml */
+	ES_DB_DIRECTORY = '/usr/local/var/elasticsearch/hashtagsell',
+
 	/* IMPORTANT NOTE: This matches a setting in ./init/mongodb.conf */
 	MONGO_DB_DIRECTORY = '/usr/local/var/mongodb/hashtagsell';
+
+
+function ensureDirectory (path, callback) {
+	// Note: using child_process.spawn instead of fs.mkdir so I can
+	// leverage the -p parameter
+	var
+		err,
+		message = '',
+		mkdir = spawn('mkdir', ['-p', path]);
+
+	mkdir.stdout.on('data', function (data) {
+		message += data;
+	});
+
+	mkdir.stderr.on('data', function (data) {
+		message += data;
+	});
+
+	mkdir.on('close', function (code) {
+		if (code !== 0) {
+			err = new Error(
+				'Error occurred attempting to create directory at ' +
+				path);
+			err.exitCode = code;
+			err.message = message;
+
+			return callback(err);
+		}
+
+		return callback(null, message);
+	});
+}
 
 
 gulp.task('clean', function (callback) {
@@ -27,24 +63,39 @@ gulp.task('jshint', function () {
 
 
 gulp.task('ensure-data-directory', function (callback) {
-	// Note: using child_process.spawn instead of fs.mkdir so I can
-	// leverage the -p parameter
+	ensureDirectory(MONGO_DB_DIRECTORY, callback);
+});
+
+
+gulp.task('ensure-es-directory', function (callback) {
+	ensureDirectory(ES_DB_DIRECTORY, callback);
+});
+
+
+gulp.task('es-start', ['ensure-es-directory'], function (callback) {
 	var
 		err,
 		message = '',
-		mkdir = spawn('mkdir', ['-p', MONGO_DB_DIRECTORY]);
+		mongod = spawn('elasticsearch', ['--config=./init/elasticsearch.yml', '-d']);
 
-	mkdir.stdout.on('data', function (data) {
+	mongod.stdout.on('data', function (data) {
 		message += data;
 	});
 
-	mkdir.stderr.on('data', function (data) {
+	mongod.stderr.on('data', function (data) {
 		message += data;
 	});
 
-	mkdir.on('close', function (code) {
+	mongod.on('close', function (code) {
+		if (code === 100) {
+			console.log('An instance of Mongo may already be running...');
+			console.log(message);
+
+			return callback(null, message);
+		}
+
 		if (code !== 0) {
-			err = new Error('Error occurred attempting to create data directory');
+			err = new Error('Error occurred attempting to start Mongo');
 			err.exitCode = code;
 			err.message = message;
 
@@ -52,6 +103,20 @@ gulp.task('ensure-data-directory', function (callback) {
 		}
 
 		return callback(null, message);
+	});
+});
+
+
+gulp.task('es-stop', function (callback) {
+	request({
+		method: 'POST',
+		url : 'http://localhost:9200/_shutdown'
+	}, function (err, res, body) {
+		if (res && res.statusCode > 299) {
+			return callback(new Error(body));
+		}
+
+		return callback(err);
 	});
 });
 
