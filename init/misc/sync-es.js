@@ -33,7 +33,13 @@ module.exports = (function (app) {
 					return setImmediate(proceed);
 				}
 
-				app.es.indices.createIndex(proceed);
+				app.es.indices.createIndex(function (err) {
+					if (err) {
+						return proceed(err);
+					}
+
+					return proceed();
+				});
 			},
 
 			function (proceed) {
