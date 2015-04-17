@@ -4,6 +4,8 @@
   "description": "API for storing and retrieving posting data",
   "main": "server.js",
   "scripts": {
+    "migrations": "bash init/apply-migrations.sh",
+    "sync-es": "node init/misc/sync-es | bunyan -o short",
     "start": "supervisor -e md,js,node server | bunyan -o short",
     "test": "gulp test-all"
   },
