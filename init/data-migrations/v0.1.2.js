@@ -1,3 +1,7 @@
+/* global db */
+/* jshint quotmark : false */
+/* jshint strict : false */
+
 /**
  * Creates groupings collection for all categories
  **/
