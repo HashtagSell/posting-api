@@ -1,0 +1,40 @@
+{
+	"mappings": {
+		"posting-v1": {
+			"_ttl": {
+				"enabled": true,
+				"default": "14d"
+			},
+			"properties": {
+				"body": {
+					"type": "string"
+				},
+				"categoryCode": {
+					"index": "not_analyzed",
+					"norms": {
+						"enabled": false
+					},
+					"type": "string"
+				},
+				"geo": {
+					"type": "nested",
+					"properties": {
+						"coordinates": {
+							"type": "geo_point"
+						}
+					}
+				},
+				"heading": {
+					"type": "string"
+				},
+				"username": {
+					"index": "not_analyzed",
+					"norms": {
+						"enabled": false
+					},
+					"type": "string"
+				}
+			}
+		}
+	}
+}
