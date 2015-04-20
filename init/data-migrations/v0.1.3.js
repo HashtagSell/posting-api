@@ -1,3 +1,6 @@
+/* global db */
+/* jshint strict : false */
+
 /**
  * Ensures categoryCode is supplied for each posting
  **/

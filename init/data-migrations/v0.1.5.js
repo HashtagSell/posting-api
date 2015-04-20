@@ -1,3 +1,6 @@
+/* global db */
+/* jshint strict : false */
+
 /**
  * Creates collection used to map between internal categories and Ebay categories
  **/

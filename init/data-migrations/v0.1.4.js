@@ -1,3 +1,6 @@
+/* global db */
+/* jshint strict : false */
+
 /**
  * Swaps 2d index for 2dsphere index on postings.geo.coordinates
  **/

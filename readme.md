@@ -64,12 +64,14 @@ var posting = {
 ### Dependencies
 
 * Node v0.10
-* MongoDB v2.6
+* MongoDB v3.0.2
+* Elasticsearch v1.5.1
 
-A simple way to install and run Mongo locally is to use Homebrew (<http://brew.sh/>):
+A simple way to install and run both Mongo and Elasticsearch locally is to use Homebrew (<http://brew.sh/>):
 
 ```bash
 brew install mongo
+brew install elasticsearch
 ```
 
 ### Get Code
@@ -120,20 +122,19 @@ Now put the following into the `local.json` configuration file:
 
 ### Start It Up
 
-#### Redis
+#### Elasticsearch
 
-If Redis is enabled via configuration, culp will allow you to start Redis:
+After installing all modules, gulp can assist you in starting Elasticsearch:
 
 ```bash
-gulp redis-start
+gulp es-start
 ```
 
 #### Mongo DB
 
-After installing all modules, gulp can assist you in starting Mongo (note, the gulp task `ensure-data-directory` only needs to be run once):
+After installing all modules, gulp can assist you in starting Mongo:
 
 ```bash
-sudo gulp ensure-data-directory
 gulp mongo-start
 ```
 
@@ -144,7 +145,15 @@ _Please Note: All mongo data for hashtagsell is placed into `/usr/local/var/mong
 Once Mongo is started, run the following migrations to get a new database up to the right version:
 
 ```bash
-bash init/apply-migrations.sh
+npm run migrations
+```
+
+##### Synchronize Mongo with Elasticsearch
+
+If you have a Mongo database populated but Elasticsearch is out of sync, you can synchronize them by running the following script (_note the environment configuration specification_):
+
+```bash
+NODE_ENV=local npm run sync-es
 ```
 
 #### API Server

@@ -1,3 +1,6 @@
+/* global db */
+/* jshint strict : false */
+
 /**
 * Creates versions collection and fixes an index
 **/
