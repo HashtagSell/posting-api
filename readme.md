@@ -59,11 +59,41 @@ var posting = {
 };
 ```
 
-## Getting Started
+## Docker
 
-### Dependencies
+### Environment Variables
 
-* Node v0.10
+* BAY_APPID - defaults to hashtagsell sandbox info
+* EBAY_CERTID - defaults to hashtagsell sandbox info
+* EBAY_DEVID - defaults to hashtagsell sandbox info
+* EBAY_LISTING_URL_FORMAT - defaults to `http://cgi.sandbox.ebay.com/ws/eBayISAPI.dll?ViewItem&item=%d`
+* EBAY_PAYPAL_EMAIL - defaults to `admin@hashtagsell.com`
+* EBAY_TOKEN - defaults to a hashtagsell sandbox token
+* EBAY_URL - defaults to `https://api.sandbox.ebay.com/ws/api.dll`
+* ENVIRONMENT - defaults to `develop`
+* FREEGEO_URL - defaults to `http://localhost:8080/json`
+* LOGGING_LEVEL - defaults to `info`
+* MWS_ACCESS_KEY_ID - defaults to developer key for MWS
+* MWS_SELLER_ID - defaults to hashtagsell seller ID for MWS
+* REALTIME_ENABLED - defaults to false
+* REALTIME_URL - defaults to `https://realtime-svc.hashtagsell.com`
+* REALTIME_STRICTSSL - defaults to `true`
+
+An example command to run locally:
+
+```bash
+docker run -d -p 8880:8880 \
+  -e LOGGING_LEVEL=trace \
+  -e REALTIME_UI_ENABLED=true \
+  -e REDIS_ENABLED=false \
+  hashtagsell/posting-api:latest
+```
+
+## Development
+
+### Prerequisites
+
+* Node v0.10+
 * MongoDB v3.0.2
 * Elasticsearch v1.5.1
 
@@ -74,7 +104,7 @@ brew install mongo
 brew install elasticsearch
 ```
 
-### Get Code
+### Getting Started
 
 To clone the repository and install dependencies, please perform the following:
 
@@ -90,7 +120,7 @@ For convenience you may find it useful to install `gulp` globally as well:
 sudo npm install -g gulp
 ```
 
-### Configuration
+### Local Configuration
 
 The server utilizes a mechanism for allowing configuration overrides by environment. To make use of this for a local environment, create a `local.json` configuration file in a new folder named `config` at the root of the application. The `.gitignore` has an entry to ignore this folder so that the local config won't trash other environment configurations.
 
@@ -120,7 +150,7 @@ Now put the following into the `local.json` configuration file:
 }
 ```
 
-### Start It Up
+### Run It
 
 #### Elasticsearch
 
@@ -164,7 +194,7 @@ When starting the API server, an environment configuration should be specified (
 NODE_ENV=local npm start
 ```
 
-### Development
+### General Development Notes
 
 As changes are saved to .js files in the project, supervisor will automatically restart the server. It may be useful to periodically check the terminal to make sure a runtime unhandled exception isn't stopping the server. Additionally, using jshint may help to uncover potential problems before running code. The `npm test` script is connected to `gulp jshint` to help with this.
 

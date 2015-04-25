@@ -36,15 +36,15 @@
 	},
 	"realtime": {
 		"enabled": false,
-		"url": "https://localhost:4044",
-		"strictSSL": false
+		"url": "https://realtime-svc.hashtagsell.com",
+		"strictSSL": true
 	},
 	"server": {
 		"keys": {
 			"certPath": "./init/keys/server.crt",
 			"keyPath": "./init/keys/server.key"
 		},
-		"bodyLimit": "3mb",
+		"bodyLimit": "10mb",
 		"host": "0.0.0.0",
 		"port": 8880,
 		"secure": false
