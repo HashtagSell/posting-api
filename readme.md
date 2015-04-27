@@ -63,6 +63,9 @@ var posting = {
 
 ### Environment Variables
 
+* DATA_ES_SERVER_HOST - defaults to `localhost`
+* DATA_ES_SERVER_PORT - defaults to `9200`
+* DATA_MONGO_URL - defaults to `mongodb://localhost:27017/hashtagsell-posting-v1`
 * BAY_APPID - defaults to hashtagsell sandbox info
 * EBAY_CERTID - defaults to hashtagsell sandbox info
 * EBAY_DEVID - defaults to hashtagsell sandbox info
