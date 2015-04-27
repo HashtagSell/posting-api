@@ -84,7 +84,7 @@ An example command to run locally:
 ```bash
 docker run -d -p 8880:8880 \
   -e LOGGING_LEVEL=trace \
-  -e REALTIME_UI_ENABLED=true \
+  -e REALTIME_ENABLED=true \
   -e REDIS_ENABLED=false \
   hashtagsell/posting-api:latest
 ```
