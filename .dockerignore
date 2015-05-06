@@ -1,6 +1,12 @@
+.git
+.gitignore
+.jshintrc
+.dockerignore
+readme.md
+Dockerfile
 /reports/
 /config/
+/init/
 npm-debug.log
 node_modules
 .DS_Store
-dump*
