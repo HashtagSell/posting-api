@@ -77,6 +77,7 @@ var posting = {
 * FREEGEO_URL - defaults to `http://localhost:8080/json`
 * LOGGING_LEVEL - defaults to `info`
 * MWS_ACCESS_KEY_ID - defaults to developer key for MWS
+* MWS_SECRET_KEY - defaults to ``
 * MWS_SELLER_ID - defaults to hashtagsell seller ID for MWS
 * REALTIME_ENABLED - defaults to false
 * REALTIME_URL - defaults to `https://realtime-svc.hashtagsell.com`
