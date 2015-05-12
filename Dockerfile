@@ -11,4 +11,4 @@ WORKDIR /home/hashtagsell/posting-api
 COPY . /home/hashtagsell/posting-api
 
 EXPOSE 8880
-CMD ["supervisor", "server"]
+CMD ["npm", "start"]
