@@ -8,7 +8,7 @@
 	"indent" : true,
 	"latedef" : true,
 	"maxdepth" : 4,
-	"maxparams" : 6,
+	"maxparams" : 7,
 	"newcap" : true,
 	"noarg" : true,
 	"noempty" : true,
