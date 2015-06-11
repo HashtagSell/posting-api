@@ -16,6 +16,9 @@
 					},
 					"type": "string"
 				},
+				"createdAt": {
+					"type": "date"
+				},
 				"geo": {
 					"properties": {
 						"coordinates": {
