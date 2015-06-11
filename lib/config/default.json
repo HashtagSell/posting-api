@@ -30,6 +30,9 @@
 	"logging": {
 		"level": "info"
 	},
+	"models": {
+		"concurrency": 2
+	},
 	"mws": {
 		"accessKeyId": "AKIAJ3JLXBBYZKFSMLZA",
 		"secretKey": "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",
