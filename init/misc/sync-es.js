@@ -200,6 +200,7 @@ module.exports = (function (app) {
 									_ttl : [_ttl.days, 'd'].join(''),
 									body : posting.body,
 									categoryCode : posting.categoryCode,
+									createdAt : posting.createdAt,
 									geo : {
 										coordinates : {
 											lat : posting.geo.coordinates[1],
