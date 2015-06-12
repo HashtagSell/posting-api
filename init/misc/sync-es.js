@@ -214,14 +214,25 @@ module.exports = (function (app) {
 							});
 						});
 
+						/*
+						require('fs')
+							.writeFileSync(
+								'./bulk-update.json',
+								JSON.stringify(bulkUpdate, 0, 2));
+						//*/
+
 						// bulk upsert to Elasticsearch
 						return app.es.bulk(bulkUpdate, callback);
 					});
 			},
 			function (err) {
 				if (err) {
+					err.skip = skip;
+					err.limit = skip + limit;
+					err.
+
 					app.log.error(
-						'unable to retrieve postings between %d and %d from Mongo',
+						'unable to insert postings between %d and %d into Elasticsearch',
 						skip,
 						skip + limit);
 					app.log.error(err);
