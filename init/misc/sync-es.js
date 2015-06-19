@@ -11,7 +11,8 @@ var
 	mappings = require('../../lib/config/es-mappings.json'),
 	nodePackage = require('../../package.json'),
 
-	DEFAULT_POSTINGS_TYPE = 'posting-v1';
+	DEFAULT_POSTINGS_TYPE = 'posting-v1',
+	DEFAULT_SOURCE_CODE = 'HSHTG';
 
 
 module.exports = (function (app) {
@@ -177,6 +178,7 @@ module.exports = (function (app) {
 
 						var
 							bulkUpdate = [],
+							source,
 							_ttl;
 
 						postings.forEach(function (posting) {
@@ -184,6 +186,11 @@ module.exports = (function (app) {
 								new Date(),
 								posting.expiresAt,
 								countdown.DAYS);
+
+							// determine source code for posting
+							source = (posting.external && posting.external.source) ?
+								(posting.external.source.code || DEFAULT_SOURCE_CODE) :
+								DEFAULT_SOURCE_CODE;
 
 							// instruction
 							bulkUpdate.push({
@@ -208,6 +215,7 @@ module.exports = (function (app) {
 										}
 									},
 									heading : posting.heading,
+									source : source,
 									username : posting.username
 								},
 								'doc_as_upsert' : true

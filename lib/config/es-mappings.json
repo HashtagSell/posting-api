@@ -29,6 +29,13 @@
 				"heading": {
 					"type": "string"
 				},
+				"source": {
+					"index": "not_analyzed",
+					"norms": {
+						"enabled": false
+					},
+					"type": "string"
+				},
 				"username": {
 					"index": "not_analyzed",
 					"norms": {
