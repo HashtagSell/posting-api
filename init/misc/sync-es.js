@@ -228,8 +228,11 @@ module.exports = (function (app) {
 			},
 			function (err) {
 				if (err) {
+					err.skip = skip;
+					err.limit = limit;
+
 					app.log.error(
-						'unable to retrieve postings between %d and %d from Mongo',
+						'unable to insert postings between %d and %d into Elasticsearch',
 						skip,
 						skip + limit);
 					app.log.error(err);
