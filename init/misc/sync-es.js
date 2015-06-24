@@ -193,7 +193,7 @@ module.exports = (function (app) {
 								DEFAULT_SOURCE_CODE;
 
 							// do not index any filtered sources for search
-							if (app.config.filters.externalSource.indexOf(source)) {
+							if (app.config.filters.externalSource.indexOf(source) !== -1) {
 								return;
 							}
 
