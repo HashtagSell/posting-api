@@ -192,6 +192,11 @@ module.exports = (function (app) {
 								(posting.external.source.code || DEFAULT_SOURCE_CODE) :
 								DEFAULT_SOURCE_CODE;
 
+							// do not index any filtered sources for search
+							if (app.config.filters.externalSource.indexOf(source) !== -1) {
+								return;
+							}
+
 							// instruction
 							bulkUpdate.push({
 								update : {
@@ -221,6 +226,11 @@ module.exports = (function (app) {
 								'doc_as_upsert' : true
 							});
 						});
+
+						// make sure there is data to bulk index
+						if (!bulkUpdate.length) {
+							return setImmediate(callback);
+						}
 
 						// bulk upsert to Elasticsearch
 						return app.es.bulk(bulkUpdate, callback);
