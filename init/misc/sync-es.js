@@ -11,6 +11,7 @@ var
 	mappings = require('../../lib/config/es-mappings.json'),
 	nodePackage = require('../../package.json'),
 
+	DEFAULT_GROUPING_HEADING_TYPE = 'grouping-heading',
 	DEFAULT_POSTINGS_TYPE = 'posting-v1',
 	DEFAULT_SOURCE_CODE = 'HSHTG';
 
@@ -137,12 +138,11 @@ module.exports = (function (app) {
 		}
 
 		app.log.info(
-			'synchronizing postings from Mongo %s to Elasticsearch at %s:%d/%s/%s',
+			'synchronizing postings from Mongo %s to Elasticsearch at %s:%d/%s',
 			app.config.data.mongo.url,
 			app.config.data.es.server.host,
 			app.config.data.es.server.port,
-			app.config.data.es._index,
-			DEFAULT_POSTINGS_TYPE);
+			app.config.data.es._index);
 
 		var
 			limit = 1000,
@@ -177,11 +177,31 @@ module.exports = (function (app) {
 						totalPostings += postingsRetrieved;
 
 						var
-							bulkUpdate = [],
+							bulkGroupingUpdate = [],
+							bulkPostingUpdate = [],
 							source,
 							_ttl;
 
 						postings.forEach(function (posting) {
+							// instruction for grouping-heading
+							bulkGroupingUpdate.push({
+								update : {
+									_id : posting.postingId,
+									_index : app.config.data.es._index,
+									_type : DEFAULT_GROUPING_HEADING_TYPE
+								}
+							});
+
+							// document for grouping-heading
+							bulkGroupingUpdate.push({
+								doc : {
+									categoryCode : posting.categoryCode,
+									heading : posting.heading,
+									source : source
+								},
+								'doc_as_upsert' : true
+							});
+
 							_ttl = countdown(
 								new Date(),
 								posting.expiresAt,
@@ -197,8 +217,8 @@ module.exports = (function (app) {
 								return;
 							}
 
-							// instruction
-							bulkUpdate.push({
+							// instruction for posting-v1
+							bulkPostingUpdate.push({
 								update : {
 									_id : posting.postingId,
 									_index : app.config.data.es._index,
@@ -207,7 +227,7 @@ module.exports = (function (app) {
 							});
 
 							// document
-							bulkUpdate.push({
+							bulkPostingUpdate.push({
 								doc : {
 									_ttl : [_ttl.days, 'd'].join(''),
 									body : posting.body,
@@ -228,12 +248,15 @@ module.exports = (function (app) {
 						});
 
 						// make sure there is data to bulk index
-						if (!bulkUpdate.length) {
+						if (!bulkGroupingUpdate && !bulkPostingUpdate.length) {
 							return setImmediate(callback);
 						}
 
 						// bulk upsert to Elasticsearch
-						return app.es.bulk(bulkUpdate, callback);
+						return async.series([
+							async.apply(app.es.bulk, bulkGroupingUpdate),
+							async.apply(app.es.bulk, bulkPostingUpdate)
+						], callback);
 					});
 			},
 			function (err) {
