@@ -145,6 +145,7 @@ module.exports = (function (app) {
 			app.config.data.es._index);
 
 		var
+			errors = [],
 			limit = 1000,
 			postingsRetrieved = limit,
 			skip = 0,
@@ -256,21 +257,22 @@ module.exports = (function (app) {
 						return async.series([
 							async.apply(app.es.bulk, bulkGroupingUpdate),
 							async.apply(app.es.bulk, bulkPostingUpdate)
-						], callback);
+						], function (err) {
+							if (err) {
+								err.skip = skip;
+								err.limit = limit;
+
+								errors.push(err);
+							}
+
+							return callback();
+						});
 					});
 			},
-			function (err) {
-				if (err) {
-					err.skip = skip;
-					err.limit = limit;
-
-					app.log.error(
-						'unable to insert postings between %d and %d into Elasticsearch',
-						skip,
-						skip + limit);
-					app.log.error(err);
-
-					process.exit(1);
+			function () {
+				if (errors) {
+					app.log.warn('errors encountered while populating Elasticsearch');
+					app.log.warn(errors);
 				}
 
 				app.log.info('completed processing %d postings', totalPostings);
