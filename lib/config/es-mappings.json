@@ -44,6 +44,28 @@
 					"type": "string"
 				}
 			}
+		},
+
+		"grouping-heading": {
+			"properties": {
+				"categoryCode": {
+					"index": "not_analyzed",
+					"norms": {
+						"enabled": false
+					},
+					"type": "string"
+				},
+				"heading": {
+					"type": "string"
+				},
+				"source": {
+					"index": "not_analyzed",
+					"norms": {
+						"enabled": false
+					},
+					"type": "string"
+				}
+			}
 		}
 	}
 }
