@@ -70,6 +70,7 @@ var posting = {
 * EBAY_CERTID - defaults to hashtagsell sandbox info
 * EBAY_DEVID - defaults to hashtagsell sandbox info
 * EBAY_LISTING_URL_FORMAT - defaults to `http://cgi.sandbox.ebay.com/ws/eBayISAPI.dll?ViewItem&item=%d`
+* EBAY_NOTIFICATIONS_URL - defaults to `https://staging-posting-api.hashtagsell.com/v1/publishers/ebay/notifications`
 * EBAY_PAYPAL_EMAIL - defaults to `admin@hashtagsell.com`
 * EBAY_TOKEN - defaults to a hashtagsell sandbox token
 * EBAY_URL - defaults to `https://api.sandbox.ebay.com/ws/api.dll`
@@ -90,6 +91,7 @@ docker run -d -p 8880:8880 \
   -e LOGGING_LEVEL=trace \
   -e REALTIME_ENABLED=true \
   -e REDIS_ENABLED=false \
+  -v /tmp/ebay:/tmp
   hashtagsell/posting-api:latest
 ```
 
