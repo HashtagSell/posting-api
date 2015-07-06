@@ -91,6 +91,7 @@ docker run -d -p 8880:8880 \
   -e LOGGING_LEVEL=trace \
   -e REALTIME_ENABLED=true \
   -e REDIS_ENABLED=false \
+  -v /tmp/ebay:/tmp
   hashtagsell/posting-api:latest
 ```
 
