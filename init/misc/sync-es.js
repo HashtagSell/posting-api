@@ -185,7 +185,9 @@ module.exports = (function (app) {
 						var
 							bulkGroupingUpdate = [],
 							bulkPostingUpdate = [],
+							city,
 							source,
+							state,
 							_ttl;
 
 						postings.forEach(function (posting) {
@@ -218,6 +220,20 @@ module.exports = (function (app) {
 								(posting.external.source.code || DEFAULT_SOURCE_CODE) :
 								DEFAULT_SOURCE_CODE;
 
+							// determine city and state for posting
+							if (posting.geo && posting.geo.location) {
+								city = posting.geo.location.city;
+								state = posting.geo.location.state;
+							}
+
+							// if geo.location is not set then use external threeTaps data
+							if (posting.external &&
+								posting.external.threeTaps &&
+								posting.external.threeTaps.location) {
+								city = city || posting.external.threeTaps.location.city;
+								state = state || posting.external.threeTaps.location.state;
+							}
+
 							// do not index any filtered sources for search
 							if (app.config.filters.externalSource.indexOf(source) !== -1) {
 								return;
@@ -246,6 +262,10 @@ module.exports = (function (app) {
 										}
 									},
 									heading : posting.heading,
+									location : {
+										city : city,
+										state : state
+									},
 									source : source,
 									username : posting.username
 								},
