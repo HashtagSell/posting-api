@@ -29,6 +29,24 @@
 				"heading": {
 					"type": "string"
 				},
+				"location": {
+					"properties": {
+						"city": {
+							"index": "not_analyzed",
+							"norms": {
+								"enabled": false
+							},
+							"type": "string"
+						},
+						"state": {
+							"index": "not_analyzed",
+							"norms": {
+								"enabled": false
+							},
+							"type": "string"
+						}
+					}
+				},
 				"source": {
 					"index": "not_analyzed",
 					"norms": {
