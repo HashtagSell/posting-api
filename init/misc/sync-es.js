@@ -221,9 +221,9 @@ module.exports = (function (app) {
 								DEFAULT_SOURCE_CODE;
 
 							// determine city and state for posting
-							if (posting.geo && posting.geo.location) {
-								city = posting.geo.location.city;
-								state = posting.geo.location.state;
+							if (posting.location) {
+								city = posting.location.city;
+								state = posting.location.state;
 							}
 
 							// if geo.location is not set then use external threeTaps data
