@@ -115,7 +115,12 @@ module.exports = (function (app) {
 	 **/
 	function loadConfig (callback) {
 		settings.initialize({
-			baseConfigPath : baseConfigPath
+			baseConfigPath : baseConfigPath,
+			readEnvironmentMap : {
+				DATA_ES_SERVER_HOST : 'data.es.server.host',
+				DATA_ES_SERVER_PORT : 'data.es.server.port',
+				DATA_MONGO_URL : 'data.mongo.url'
+			}
 		}, function (err, config) {
 			if (err) {
 				return callback(err);
