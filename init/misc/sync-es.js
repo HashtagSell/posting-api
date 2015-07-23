@@ -19,6 +19,38 @@ var
 module.exports = (function (app) {
 	'use strict';
 
+	var nonIndexedPostings = [];
+
+	/**
+	 * Collection recent transactions for filtering postings from search
+	 **/
+	function collectionRecentTransactions (callback) {
+		var
+			now = new Date(),
+			past = new Date().setDate(now.getDate() - 30);
+
+		app.log.info('retrieving recent transactions for posting exclusions');
+
+		app
+			.db
+			.collection('transactions')
+			.find({
+				createdAt : { $gte : past }
+			}, { postingId : true })
+			.toArray(function (err, transactions) {
+				if (err) {
+					return callback(err);
+				}
+
+				transactions.forEach(function (transaction) {
+					nonIndexedPostings.push(transaction.postingId);
+				});
+
+				app.log.info('found %d posting exclusions', nonIndexedPostings.length);
+				return callback();
+			});
+	}
+
 	/**
 	 * Connect to Elasticsearch
 	 **/
@@ -135,7 +167,8 @@ module.exports = (function (app) {
 		config : loadConfig,
 		es : ['config', 'logging', connectToElasticsearch],
 		logging : ['config', createLogger],
-		mongo : ['config', 'logging', connectToMongo]
+		mongo : ['config', 'logging', connectToMongo],
+		recentTransactions : ['mongo', collectionRecentTransactions],
 	}, function (err) {
 		if (err) {
 			(app.log || console).error(err);
@@ -164,7 +197,12 @@ module.exports = (function (app) {
 				app
 					.db
 					.collection('postings')
-					.find({})
+					// don't grab postings we shouldn't search index
+					.find({
+						postingId : {
+							$nin : nonIndexedPostings
+						}
+					})
 					.skip(skip)
 					.limit(limit)
 					.toArray(function (err, postings) {
