@@ -43,6 +43,10 @@
 		"secretKey": "7XCNh8/Dkd9mYVCIIx9C/Y7S6dg6WmnOSyPLrSEL",
 		"sellerId": "A318V6BNW6VDCT"
 	},
+	"notifications": {
+	  "url": "https://notification-svc.hashtagsell.com",
+	  "strictSSL": true
+	},
 	"realtime": {
 		"enabled": false,
 		"url": "https://realtime-svc.hashtagsell.com",
