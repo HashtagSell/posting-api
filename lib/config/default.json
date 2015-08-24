@@ -44,7 +44,7 @@
 		"sellerId": "A318V6BNW6VDCT"
 	},
 	"notifications": {
-	  "url": "https://notification-svc.hashtagsell.com",
+	  "url": "https://notifications-svc.hashtagsell.com",
 	  "strictSSL": true
 	},
 	"realtime": {
