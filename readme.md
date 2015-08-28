@@ -80,6 +80,7 @@ var posting = {
 * MWS_ACCESS_KEY_ID - defaults to developer key for MWS
 * MWS_SECRET_KEY - defaults to ``
 * MWS_SELLER_ID - defaults to hashtagsell seller ID for MWS
+* NOTIFICATIONS_URL - defaults to `https://notifications-svc.hashtagsell.com`
 * REALTIME_ENABLED - defaults to false
 * REALTIME_URL - defaults to `https://realtime-svc.hashtagsell.com`
 * REALTIME_STRICTSSL - defaults to `true`
